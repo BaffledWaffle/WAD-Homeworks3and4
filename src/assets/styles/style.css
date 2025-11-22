@@ -1,0 +1,214 @@
+/* ===== COMMON STYLES ===== */
+
+body {
+    font-family: "mont";
+    overflow-x: hidden;
+
+    /*solution for white lines on the sites*/
+    margin: 0;
+    width: 100%; 
+    height: 100%;
+}
+
+@font-face {
+  font-family: "mont";
+  src: url("fonts/mont/Mont-HeavyDEMO.otf");
+}
+
+@font-face {
+  font-family: "mont_light";
+  src: url("fonts/mont/Mont-ExtraLightDEMO.otf") format("opentype");
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+/* ===== STYLES FOR NAVBAR ===== */
+#navbar {
+
+    /** size settings */
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 1000;
+
+    /** flex settings */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    /** styles */
+    padding: 7px 30px;             
+    background-color: #341A0B;    
+    
+}
+
+#navbar #header-links-container a {
+    display: inline;
+    width: fit-content;
+    max-height: 50px;
+
+    /** styles */                   
+    font-size: 20px;                
+    color: #F5E8D9;
+    text-decoration: none;
+
+}
+
+.nav-link {
+    /** background for hover (it is necesseraly...)*/
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+#navbar #header-links-container a:hover {
+    color: #B2997C;
+    background-color: #1F0E03;
+}
+
+#navbar #header-links-container #divider {
+    user-select: none;
+    font-size: 24px;                
+    color: #F5E8D9;
+}
+
+#navbar #account #account-image-container {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 0;
+    border-radius: 100%;
+    transition: all 0.3s ease;
+    overflow: hidden; 
+}
+
+#navbar #account #account-image-container img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+
+    /**alignment*/
+    margin-top: 6px; 
+}
+
+#navbar #account #account-image-container:hover {
+    cursor: pointer;
+    background-color: #1F0E03;
+}
+
+#divider{
+    font-family:Arial, Helvetica, sans-serif;
+    color: #B2997C !important;
+}
+
+/* ===== CONTENT CONTAINER styles ===== */
+#content {
+    width: 100%;
+    flex-grow: 1;
+}
+
+/* ===== FOOTER STYLES ===== */
+footer {
+    min-height: 200px;      
+    background-color: #1F0E03;
+    padding: 30px 80px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'mont';
+}
+
+footer #columns-container {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #F5E8D9;
+}
+
+footer .column {
+    flex: 1 1 200px;
+}
+
+footer .column h2 {
+    font: 24px;
+    color: #B2997C;
+}
+
+footer .column ul li::marker {
+    color: #B2997C;
+}
+
+footer .column a {
+    text-decoration: none;
+    color: #F5E8D9;
+}
+
+footer #copyright {
+    width: 100%;
+    height: 16px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #B2997C;
+    
+    font-family: 'mont_light';
+}
+
+
+/* ===== Dropdown menu ===== */
+
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 5%;
+  top: 60%;
+  background-color: #F5E8D9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #B2997C;
+}
+
+.dropdown-content a:first-child:hover {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.dropdown-content a:last-child:hover {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Show the dropdown */
+.show {
+  display: block;
+}
