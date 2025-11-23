@@ -1,6 +1,8 @@
 #content {
     background-image: url("../img/womenBackground.png");
     background-size: cover;
+
+    min-height: 100vh;
 }
 
 #signup-form {

@@ -13,12 +13,18 @@
             </div>
         </form>
     </div>
+    <FooterComponent />
 </template>
 
 <script>
+import FooterComponent from '@/components/Footer.vue'
 
 export default {
   name: "LoginView",
+
+components: {
+    FooterComponent,
+  }
 }
 
 </script>

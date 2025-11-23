@@ -1,5 +1,5 @@
 <template>
-    <div id="content">
+  <div id="content">
     <form id="signup-form" @submit.prevent="handleSignup">
       <div id="inputs-container">
         <h2>Create an Account</h2>
@@ -35,12 +35,18 @@
       </div>
     </form>
   </div>
+  <FooterComponent />
 </template>
 
 <script>
+import FooterComponent from '@/components/Footer.vue'
 
 export default {
   name: "SignupView",
+
+  components: {
+    FooterComponent
+  },
 
   data() {
     return {

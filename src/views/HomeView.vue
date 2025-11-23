@@ -1,5 +1,5 @@
 <template>
-      <div id="content">
+  <div id="content">
     <div id="content-positioner">
       <div class="sidebar left"></div>
         <div id="feed-of-posts">

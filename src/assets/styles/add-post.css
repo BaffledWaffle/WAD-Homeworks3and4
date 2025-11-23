@@ -3,6 +3,8 @@
 #content {
     background-image: url("../img/background_addPost.png");
     background-size: cover;
+
+    min-height: 100vh;
    
 }
 

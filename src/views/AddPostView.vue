@@ -16,11 +16,18 @@
                 <button type="button" @click="goToCreatePost">CREATE POST</button>
             </form>
         </div>
+      <FooterComponent />
 </template>
 
 <script>
+import FooterComponent from '@/components/Footer.vue'
+
 export default {
   name: "AddPostView",
+
+  components: {
+    FooterComponent
+  },
 
   methods: {
     goToCreatePost() {

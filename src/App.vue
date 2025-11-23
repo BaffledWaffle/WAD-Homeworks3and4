@@ -11,10 +11,12 @@ import HeaderComponent from '@/components/Header.vue'
 export default {
   name: "App",
   components: {
-    HeaderComponent,
+    HeaderComponent
   }
 }
 </script>
 
 <style src="./assets/styles/style.css"></style>
 <style src="./assets/styles/media.css"></style>
+
+
