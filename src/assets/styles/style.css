@@ -12,12 +12,12 @@ body {
 
 @font-face {
   font-family: "mont";
-  src: url("fonts/mont/Mont-HeavyDEMO.otf");
+  src: url("./fonts/mont/Mont-HeavyDEMO.otf");
 }
 
 @font-face {
   font-family: "mont_light";
-  src: url("fonts/mont/Mont-ExtraLightDEMO.otf") format("opentype");
+  src: url("./fonts/mont/Mont-ExtraLightDEMO.otf") format("opentype");
 }
 
 .wrapper {

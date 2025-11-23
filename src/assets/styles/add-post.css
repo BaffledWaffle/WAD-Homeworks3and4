@@ -1,6 +1,9 @@
-.wrapper {
+
+
+#content {
     background-image: url("../img/background_addPost.png");
     background-size: cover;
+   
 }
 
 /* =====  ===== */
