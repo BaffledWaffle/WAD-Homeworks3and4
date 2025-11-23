@@ -11,7 +11,10 @@
       </div>
 
       <div class="text">
-        <p class="usernames">{{ post.author }}</p>
+        <div class="post-header">
+          <p class="usernames">{{ post.author }}</p>
+          <p class="post-date">{{ formatDate(post.created_at) }}</p>
+        </div>
 
         <p :class="['main-text', { expanded: expanded }]" ref="mainText">
           {{ post.description }}
@@ -61,6 +64,16 @@ export default {
       return path;
     },
 
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      // Returns: "Oct 31, 2025"
+    },
+
     toggleExpanded() {
       this.expanded = !this.expanded;
     },
@@ -108,9 +121,25 @@ export default {
   height: 40px;
 }
 
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+
 .usernames {
   font-weight: bold;
   font-family: "mont";
+}
+
+.post-date {
+  font-family: "mont_light";
+  font-size: 12px;
+  color: #666;
+  margin: 0;
 }
 
 .main-text {
