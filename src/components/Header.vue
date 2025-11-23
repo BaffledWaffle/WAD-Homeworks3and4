@@ -9,13 +9,60 @@
 
         <div id="account">
             <div id="account-image-container">
-                <a  class="nav-link"><img src="../assets/img/account_circle.svg" alt="" id="account-img"></a>
+                <a class="nav-link" @click="toggleDropdown">
+                    <img src="../assets/img/account_circle.svg" alt="Account" id="account-img">
+                </a>
+    
             </div>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div id="myDropdown" class="dropdown-content" :class="{ show: dropdownVisible }">
+            <a href="#" @click.prevent="handleProfile">Profile</a>
+            <a href="#" @click.prevent="handleSettings">Settings</a>
+            <a href="#" @click.prevent="handleLogout">Logout</a>
         </div>
     </nav>
 </template>
 
-<script> export default { name: 'HeaderComponent' } </script>
+<script>
+export default { 
+    name: 'HeaderComponent',
+    data() {
+        return {
+            dropdownVisible: false
+        }
+    },
+    methods: {
+        toggleDropdown(event) {
+            event.stopPropagation(); 
+            this.dropdownVisible = !this.dropdownVisible;
+        },
+        handleProfile() {
+            console.log('Profile clicked');
+            this.dropdownVisible = false;
+        },
+        handleSettings() {
+            console.log('Settings clicked');
+            this.dropdownVisible = false;
+        },
+        handleLogout() {
+            console.log('Logout clicked');
+            this.dropdownVisible = false;
+        },
+        closeDropdown() {
+            this.dropdownVisible = false;
+        }
+    },
+    mounted() {
+        // Close dropdown when clicking anywhere else
+        document.addEventListener('click', this.closeDropdown);
+    },
+    beforeUnmount() {
+        document.removeEventListener('click', this.closeDropdown);
+    }
+}
+</script>
 
 <style scoped>
 #navbar {
@@ -24,7 +71,7 @@
     position: sticky;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,6 +89,7 @@
     padding: 8px 16px;
     border-radius: 5px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 #navbar #header-links-container a:hover {
@@ -62,6 +110,7 @@
     border-radius: 100%;
     transition: 0.3s;
     overflow: hidden;
+    position: relative;
 }
 
 #account-image-container img {
@@ -75,16 +124,44 @@
     background-color: #1F0E03;
 }
 
+/* Dropdown content (hidden by default) */
 .dropdown-content {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #1F0E03;
-    padding: 10px;
-    border-radius: 5px;
-    color: #F5E8D9;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: none;
+  position: absolute;
+  right: 5%;
+  top: 60%;
+  background-color: #F5E8D9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content a:hover {
+  background-color: #B2997C;
+}
+
+.dropdown-content a:first-child:hover {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.dropdown-content a:last-child:hover {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Show the dropdown */
+.dropdown-content.show {
+  display: block;
 }
 </style>
