@@ -1,19 +1,32 @@
 // server.js
 const express = require('express');
-const pool = require('./database');
+const pool = require('./db/database');
 const cors = require('cors')
 const port = process.env.PORT || 3000;
+const initDatabase = require('./db/init');
+
+// Secure
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
-app.use(cors());
+app.use(cors( { origin: 'http://localhost:8080', credentials: true } ));
 
 // The express.json() function is a built-in middleware function in Express. 
 // It parses incoming requests with JSON payloads and is based on body-parser.
 app.use(express.json());
+app.use(cookieParser());
 
 //  Handling HTTP requests code will go here  
 
-app.listen(port, () => {
+( async () => {
+    // Initialize database if doesn't exist
+    await initDatabase
+
+    // And then start listening requests on port
+    app.listen(port, () => {
     console.log("Server is listening to port " + port)
 });
+} )
