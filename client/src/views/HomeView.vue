@@ -32,7 +32,7 @@
               Add Post
             </button>
 
-            <button class="action-btn delete">
+            <button class="action-btn delete" @click="deleteAllPosts">
               Delete All
             </button>
           </div>
@@ -48,6 +48,7 @@
 import FooterComponent from '@/components/Footer.vue'
 import PostItem from '@/components/Post.vue'
 import { mapGetters, mapActions } from 'vuex'
+import axios from 'axios'
 
 
 export default {
@@ -63,7 +64,40 @@ export default {
     ...mapActions(['resetLikes', 'fetchPosts']),
     resetAllLikes() {
       this.resetLikes();
-    }
+    },
+    logout() {
+    localStorage.removeItem('token');
+
+    axios.post('http://localhost:3000/api/users/logout')
+      .then(() => {
+        this.$router.push('/login');
+      })
+      .catch(err => {
+        console.error(err);
+        this.$router.push('/login');
+      });
+  },
+    async deleteAllPosts() {
+      try {
+        const token = localStorage.getItem('token');
+        console.log("send")
+        await axios.delete('http://localhost:3000/api/posts/delete-all', {
+          headers: {
+            authorization: 'Bearer ' + token
+          }
+        });
+
+        this.$store.dispatch('fetchPosts');
+
+        this.$router.push('/');
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.message);
+        } else {
+          console.error(err);
+        }
+      }
+}
   },
   mounted() {
     this.fetchPosts();

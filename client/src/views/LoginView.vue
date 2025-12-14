@@ -1,6 +1,6 @@
 <template>
     <div id="content">
-        <form id="login-form" action="">
+        <form id="login-form" @submit.prevent="handleLogin">
             <div id="inputs-container">
                 <h2>WELCOME TO PARAPAPA</h2>
                 <p><router-link to="/signup">Create an account</router-link></p>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import FooterComponent from '@/components/Footer.vue'
 
 export default {
@@ -24,6 +25,26 @@ export default {
 
 components: {
     FooterComponent,
+},
+methods: {
+    async handleLogin() {
+      try {
+        const res = await axios.post('http://localhost:3000/api/users/login', {
+          email: this.email,
+          password: this.password
+        })
+
+        const token = res.data.token
+        localStorage.setItem('token', token)
+        this.$router.push('/')
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.message)
+        } else {
+          console.error(err)
+        }
+      }
+    }
   }
 }
 

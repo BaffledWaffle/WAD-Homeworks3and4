@@ -33,9 +33,9 @@ export default {
   async created() {
     const postId = this.$route.params.id
     try {
-      const res = await axios.get(`http://localhost:3000/posts/${postId}`)
+      const res = await axios.get(`http://localhost:3000/api/posts/get/${postId}`)
       this.post = res.data
-      this.editableText = this.post.description
+      this.editableText = this.post.body
     } catch (err) {
       console.error(err)
       alert('Failed to load post')
@@ -50,9 +50,9 @@ export default {
       const token = localStorage.getItem('token')
       try {
         await axios.put(
-          `http://localhost:3000/posts/${this.post.id}`,
-          { description: this.editableText },
-          { headers: { Authorization: `Bearer ${token}` } }
+          `http://localhost:3000/api/posts/update/${this.post.id}`,
+          { body: this.editableText },
+          { headers: { authorization: `Bearer ${token}` } }
         )
         alert('Post updated!')
         this.$router.push('/')
@@ -66,8 +66,8 @@ export default {
       const token = localStorage.getItem('token')
       try {
         await axios.delete(
-          `http://localhost:3000/posts/${this.post.id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
+          `http://localhost:3000/api/posts/delete/${this.post.id}`,
+          { headers: { authorization: `Bearer ${token}` } }
         )
         alert('Post deleted!')
         this.$router.push('/')

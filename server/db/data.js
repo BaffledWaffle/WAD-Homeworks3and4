@@ -2,7 +2,7 @@ const pool = require('./database');
 
 // - Posts CRUD -
 async function getAllPosts() {
-  const result = await pool.query('SELECT * FROM posts ORDER BY date DESC');
+  const result = await pool.query('SELECT * FROM posts ORDER BY created_at DESC');
   return result.rows;
 }
 
@@ -13,7 +13,7 @@ async function getPostById(id) {
 
 async function createPost(body) {
   const result = await pool.query(
-    'INSERT INTO posts(body, date) VALUES ($1, NOW()) RETURNING *',
+    'INSERT INTO posts(body, created_at) VALUES ($1, NOW()) RETURNING *',
     [body]
   );
   return result.rows[0];

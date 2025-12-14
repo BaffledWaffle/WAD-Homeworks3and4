@@ -9,7 +9,7 @@
         </div>
 
         <p :class="['main-text', { expanded: expanded }]" ref="mainText">
-          {{ post.description }}
+          {{ post.body }}
         </p>
 
         <!-- Show more / Show less button -->
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     goToApostView() {
-      this.$router.push(`/post/${this.post.id}`); // navigate to ApostView
+      this.$router.push(`/api/posts/get/${this.post.id}`); // navigate to ApostView
     }, 
     formatDate(dateString) {
       const date = new Date(dateString);

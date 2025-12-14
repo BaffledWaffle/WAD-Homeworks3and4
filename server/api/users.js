@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const data = require('../db/data');
+const jwt = require('jsonwebtoken');
 
 
 // - Sugnup -
@@ -9,25 +10,14 @@ router.post('/signup', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check if user already exists
     const existingUser = await data.getUserByEmail(email);
-        if (existingUser) {
-        // User already exists, then check password and login him
-        const valid = await bcrypt.compare(password, user.password);
-        if (!valid) return res.status(401).json({ message: 'Wrong password' });
-
-        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        return res.json({ token });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
     }
 
-    // If user doesn't exist
-    // Create hash
     const hash = await bcrypt.hash(password, 10);
-
-    // Create user in database
     const user = await data.createUser(email, hash);
 
-    // Creat JWT token
     const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.json({ token });
@@ -36,6 +26,7 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ message: 'Error creating user' });
   }
 });
+
 
 // - Login -
 router.post('/login', async (req, res) => {

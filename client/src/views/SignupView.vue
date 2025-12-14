@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import FooterComponent from '@/components/Footer.vue'
 
 export default {
@@ -55,17 +56,26 @@ export default {
       errors: []
     };
   },
-
   methods: {
     async handleSignup() {
-      // Call Vuex action
-      this.errors = await this.$store.dispatch("signup", {
-        email: this.email,
-        password: this.password
-      });
+      try {
+        const res = await axios.post('http://localhost:3000/api/users/signup', {
+          email: this.email,
+          password: this.password
+        })
 
-      if (this.errors.length === 0) {
-        alert("Signup successful! (Vuex version)");
+
+        const token = res.data.token
+        localStorage.setItem('token', token)
+
+        this.$router.push('/')
+      } catch (err) {
+        if (err.response) {
+          this.errorMessage = err.response.data.message
+        } else {
+          console.error(err)
+          this.errorMessage = 'Server error'
+        }
       }
     }
   }

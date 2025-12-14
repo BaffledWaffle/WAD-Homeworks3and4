@@ -47,9 +47,9 @@ export default {
         const token = localStorage.getItem('token')
 
         await axios.post(
-          'http://localhost:3000/posts',
+          'http://localhost:3000/api/posts/create',
           { body: this.body },
-          { headers: { Authorization: `Bearer ${token}` } }
+          { headers: { authorization: `Bearer ${token}` } }
         )
 
         alert('Post created successfully!')
