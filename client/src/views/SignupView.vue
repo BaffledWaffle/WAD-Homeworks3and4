@@ -17,13 +17,10 @@
         >
 
         <!-- Show errors -->
-        <p v-if="errors.length > 0" style="color: red; text-align: center;">
-          The password must:
-          <ul style="text-align: left; margin-top: 10px;">
-            <li v-for="(msg, index) in errors" :key="index">
-              {{ msg }}
-            </li>
-          </ul>
+        <p style="color: red; text-align: center;">
+
+          {{ errorMessage }}
+
         </p>
 
         <button type="submit">SUBMIT</button>
@@ -53,11 +50,13 @@ export default {
     return {
       email: "",
       password: "",
-      errors: []
+      errors: [],
+      errorMessage: ''
     };
   },
   methods: {
     async handleSignup() {
+      this.errorMessage = '';
       try {
         const res = await axios.post('http://localhost:3000/api/users/signup', {
           email: this.email,
@@ -70,13 +69,9 @@ export default {
 
         this.$router.push('/')
       } catch (err) {
-        if (err.response) {
-          this.errorMessage = err.response.data.message
-        } else {
-          console.error(err)
-          this.errorMessage = 'Server error'
-        }
-      }
+          console.log(err.response?.data);
+          this.errorMessage = err.response?.data?.message || 'Server error';
+  }
     }
   }
 }

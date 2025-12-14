@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const data = require('../db/data');
 const jwt = require('jsonwebtoken');
-
+const auth = require('../jwt/auth');
 
 // - Sugnup -
 router.post('/signup', async (req, res) => {
@@ -33,7 +33,9 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    console.log( email )
     const user = await data.getUserByEmail(email);
+    console.log( user )
     if (!user) return res.status(400).json({ message: 'No user found' });
 
     // Check password
@@ -57,6 +59,10 @@ router.post('/logout', (req, res) => {
     sameSite: 'lax'
   });
   res.json({ message: 'Logged out' });
+});
+
+router.get('/me', auth, (req, res) => {
+    res.json({ email: req.user.email });
 });
 
 module.exports = router;

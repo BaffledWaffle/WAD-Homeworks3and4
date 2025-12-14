@@ -6,8 +6,8 @@
                 <p><router-link to="/signup">Create an account</router-link></p>
                 <p>or</p>
                 <p><b>Please log in</b></p>
-                <input type="text" name="email" id="login-email" placeholder="Email">
-                <input type="password" name="password" id="login-password" placeholder="Password">
+                <input type="text" v-model="email" name="email" id="login-email" placeholder="Email">
+                <input type="password" v-model="password" name="password" id="login-password" placeholder="Password">
                 <button type="submit">LOG IN</button>
                 <p><a href="#">Forget password?</a></p>
             </div>
@@ -26,6 +26,14 @@ export default {
 components: {
     FooterComponent,
 },
+  data() {
+    return {
+      email: "",
+      password: "",
+      errors: [],
+      errorMessage: ''
+    };
+  },
 methods: {
     async handleLogin() {
       try {
@@ -36,6 +44,8 @@ methods: {
 
         const token = res.data.token
         localStorage.setItem('token', token)
+        this.$root.$emit('user-logged-in')
+        alert("Welcome!")
         this.$router.push('/')
       } catch (err) {
         if (err.response) {

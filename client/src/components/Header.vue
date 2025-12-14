@@ -20,7 +20,7 @@
         <!-- Dropdown Menu -->
         <div id="myDropdown" class="dropdown-content" :class="{ show: dropdownVisible }">
             <a href="#">{{ userEmail }}</a>
-            <a href="#" @click.prevent="handleLogout">Logout</a>
+            <a href="#" @click.prevent="logout">Logout</a>
         </div>
     </nav>
 </template>
@@ -42,31 +42,48 @@ export default {
             this.dropdownVisible = !this.dropdownVisible;
         },
         
-        handleLogout() {
-            console.log('Logout clicked');
-            this.dropdownVisible = false;
+            logout() {
+                axios.post('http://localhost:3000/api/users/logout')
+                .then(() => {
+                    localStorage.removeItem('token');
+                    this.userEmail = '';
+                    this.$router.push('/login');
+                })
+                .catch(err => {
+                    console.error(err);
+                    this.$router.push('/login');
+                });
         },
         closeDropdown() {
             this.dropdownVisible = false;
         },
         async fetchUserEmail() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                this.userEmail = '';
+                return;
+            }
             try {
-                const token = localStorage.getItem('token')
-                const res = await axios.get('http://localhost:3000/me', {
-                    headers: { Authorization: `Bearer ${token}` }
+                const res = await axios.get('http://localhost:3000/api/users/me', {
+                    headers: { authorization: `Bearer ${token}` }
                 })
                 this.userEmail = res.data.email
             } catch (err) {
                 console.error(err)
+                this.userEmail = ''; // очищаем при ошибке
             }
         }
+
     },
     mounted() {
         // Close dropdown when clicking anywhere else
         document.addEventListener('click', this.closeDropdown);
+        this.fetchUserEmail();
+        this.$root.$on('user-logged-in', this.fetchUserEmail);
     },
     beforeUnmount() {
         document.removeEventListener('click', this.closeDropdown);
+        this.$root.$off('user-logged-in', this.fetchUserEmail);
     }
 }
 </script>
