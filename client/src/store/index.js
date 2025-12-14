@@ -30,6 +30,15 @@ export default createStore({
     resetLikes({ commit }) {
       commit('resetLikes');
     },
+    async fetchPosts( {commit} ) {
+      try {
+        const res = await axios.get('http://localhost:3000/api/posts/get');
+        commit('setPosts', res.data);
+      } catch (err) {
+        console.error('Error fetching posts:', err)
+      }
+
+    },
 
     // Method for checking, if the password is valid (meets all the requirements)
     async validatePassword(context, password) {
