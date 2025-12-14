@@ -88,3 +88,75 @@
     background-color: #341A0B;
     color: #B2997C;
 }
+
+.home-actions {
+  position: sticky;
+  bottom: 20px;
+
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  padding: 15px;
+  z-index: 10;
+}
+
+.action-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.action-btn.add {
+  background-color: #341A0B;
+  color: #F5E8D9;
+}
+
+.action-btn.delete {
+  background-color: #8B2E2E;
+  color: white;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* ===== CENTER COLUMN ===== */
+
+.center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* ===== LOGOUT BAR ===== */
+
+.logout-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 15px 40px;
+}
+
+.logout-btn {
+  background-color: #341A0B;
+  border: 2px solid #341A0B;
+  color: #F5E8D9;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #8B2E2E;
+  color: #F5E8D9;
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
